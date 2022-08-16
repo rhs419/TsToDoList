@@ -18,3 +18,8 @@ tr.todo{
 
 .todoLabel{
 }
+
+.checked{
+    color: grey;
+    text-decoration-line: line-through;
+}

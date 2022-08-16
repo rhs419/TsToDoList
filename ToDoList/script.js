@@ -7,23 +7,31 @@ window.onload = function (e){
     for(let i =0; i<localStorage.length;i++){
         let data = JSON.parse(localStorage.getItem(localStorage.key(i)));
         let number = (data.id).replace("todo", "");
-        let todoCheck = document.createElement("input");
-        let todo = document.createElement("label");
-        todoCheck.type = "checkbox";
-        todoCheck.className = "todoCheck";
-        todoCheck.id = "todoCheck" + number;
-        todoCheck.checked = data.checked;
-        todoCheck.onclick = toDoDone;
-        todo.id = "todoLabel" + number;
-        todo.className = "todoLabel";
-        todo.innerText = data.todoText;
-        todo.htmlFor = "todoCheck" + number;
-        let br = document.createElement("br");
-        document.getElementById("todoList").prepend(todoCheck, todo, br);
+        addList(number,data.todoText,data.checked)
     }
 }
 
-function plusToDoLS(text){
+function addList(number, text, checked ){
+    let todoCheck = document.createElement("input");
+    let todo = document.createElement("label");
+    todoCheck.type = "checkbox";
+    todoCheck.classList.add("todoCheck");
+    todoCheck.id = "todoCheck" + number;
+    todoCheck.checked = checked;
+    todoCheck.onclick = toDoDone;
+    todo.id = "todoLabel" + number;
+    todo.classList.add("todoLabel");
+    if(checked==true){
+        todo.classList.add("checked");
+    }
+    todo.innerText = text;
+    todo.htmlFor = "todoCheck" + number;
+    let br = document.createElement("br");
+    document.getElementById("todoList").prepend(todoCheck, todo, br);
+
+}
+
+function addToDoLS(text){
     let number = document.getElementsByClassName("todoLabel").length;
     let todo = {
         id : "todo" + number,
@@ -34,23 +42,12 @@ function plusToDoLS(text){
     window.dispatchEvent( new Event('storage') )
 }
 
-function plusToDo(){
+function addToDo(){
     let toDoInput = document.getElementById("toDoInput");
     if(!(toDoInput.value==null||toDoInput.value===null||toDoInput.value.trim()=="")) {
-        plusToDoLS(toDoInput.value);
-        let todoCheck = document.createElement("input");
-        let todo = document.createElement("label");
+        addToDoLS(toDoInput.value);
         let number = document.getElementsByTagName("label").length;
-        todoCheck.type = "checkbox";
-        todoCheck.className = "todoCheck";
-        todoCheck.id = "todoCheck" + number;
-        todoCheck.onclick = toDoDone;
-        todo.id = "todoLabel" + number;
-        todo.className = "todoLabel";
-        todo.innerText = toDoInput.value;
-        todo.htmlFor = "todoCheck" + number;
-        let br = document.createElement("br");
-        document.getElementById("todoList").prepend(todoCheck, todo, br);
+        addList(number,toDoInput.value,false);
     }
     else{
         toDoInput.focus();
@@ -62,12 +59,16 @@ function toDoDone(){
     let id = this.id;
     id = id.replace("todoCheck","todoLabel");
     let todo = document.getElementById(id);
+    id = id.replace("todoLabel","todo");
+    let data = JSON.parse(localStorage.getItem(id));
     if(this.checked==true) {
-        todo.style.textDecoration = "line-through";
-        todo.style.color = "grey";
+        todo.classList.add("checked")
+        data.checked = true;
+        localStorage.setItem(id,JSON.stringify(data));
     }
     else{
-        todo.style.textDecoration = "";
-        todo.style.color = "black";
+        todo.classList.remove("checked")
+        data.checked = false;
+        localStorage.setItem(id,JSON.stringify(data));
     }
 }
