@@ -1,25 +1,44 @@
 body{
-    /*background : ;*/
-}
-
-#todoContainer{
-    display : inline-block;
-    width: fit-content;;
-    text-align: left;
-}
-
-.centerContainer{
+    background: #1c1c1c;
+    color: white;
     text-align: center;
 }
 
-tr.todo{
-    border: 1px solid black;
+
+#todoContainer{
+    display : inline-block;
+    width: max-content;
+    text-align: left;
 }
 
-.todoLabel{
+input[type=text]{
+    width: auto;
+}
+
+input[type=checkbox].todo{
+    accent-color: grey;
 }
 
 .checked{
     color: grey;
     text-decoration-line: line-through;
+}
+table{
+    border-collapse: collapse;
+}
+tr{
+    border: 1px solid grey;
+}
+
+.tdCheck{
+    text-align: center;
+}
+
+button{
+    background: inherit;
+    color: inherit;
+}
+
+button, input:not(input[type=text]){
+    cursor : pointer;
 }

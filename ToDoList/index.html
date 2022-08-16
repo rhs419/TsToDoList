@@ -7,20 +7,25 @@
     <title>ToDoList</title>
 </head>
 <body>
-    <div class="centerContainer">
-        <h3>SYS To-Do List</h3>
-        <div id = "todoContainer">
-            <form>
-                <label for="toDoInput">할일</label>
-                <input id="toDoInput" type="text"/>
-                <button type="button" onclick="addToDo()">추가</button>
-            </form>
-            <table id="todoList">
-                <tr id="todo">
-                </tr>
-                <tr id="done"></tr>
-            </table>
-        </div>
-    </div>
+    <h1>SYS To-Do List</h1>
+    <table id = "todoContainer">
+        <tbody>
+            <tr>
+                <td><label for="toDoInput">할일추가</label></td>
+                <td><input id="toDoInput" type="text"/></td>
+                <td><button type="button" onclick="addToDo()">추가</button></td>
+            </tr>
+        </tbody>
+        <tbody id="todoList">
+        </tbody>
+        <tbody>
+        <tbody id="done">
+            <tr>
+                <td>완료됨</td>
+            </tr>
+        </tbody>
+        <tbody id="doneList">
+        </tbody>
+    </table>
 </body>
 </html>
