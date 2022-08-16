@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <title>ToDoList</title>
+</head>
+<body>
+    <div class="centerContainer">
+        <h3>SYS To-Do List</h3>
+        <button type="button" onclick="plusToDoLS()">테스트</button>
+        <div id = "todoContainer">
+            <form>
+                <label for="toDoInput">할일</label>
+                <input id="toDoInput" type="text"/>
+                <button type="button" onclick="plusToDo()">추가</button>
+            </form>
+            <table id="todoList">
+                <tr id="todo">
+                    <tr id="todoLine0" class="todo">
+                        <td class="checkBox"><input id="todoCheck0" type="checkbox" onclick="alert('a'); alert('b');"/></td>
+                        <td class="label"><label id="todo0" for="todoCheck0">테스트용</label></td>
+                        <td class="button"></td>
+                    </tr>
+                </tr>
+                <tr id="done"></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
