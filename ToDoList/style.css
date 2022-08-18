@@ -1,9 +1,13 @@
 body{
+    font-size: 1.2em;
     background: #1c1c1c;
     color: white;
     text-align: center;
 }
 
+div.center{
+    text-align: center;
+}
 
 #todoContainer{
     display : inline-block;
@@ -12,7 +16,25 @@ body{
 }
 
 input[type=text]{
-    width: auto;
+    color: white;
+    background: inherit;
+    border: none;
+    width: 97%;
+    height: 4vh;
+}
+
+input[type=text]:focus{
+    outline: none;
+}
+
+#inputTd{
+    text-align: center;
+    width: 40vw;
+}
+
+#labelTd{
+    width: 5vw;
+    text-align: center;
 }
 
 input[type=checkbox].todo{
@@ -28,6 +50,7 @@ table{
 }
 tr{
     border: 1px solid grey;
+    height: 6vh;
 }
 
 .tdCheck{
@@ -37,6 +60,8 @@ tr{
 button{
     background: inherit;
     color: inherit;
+    border: none;
+    font-size: 0.7em;
 }
 
 button, input:not(input[type=text]){

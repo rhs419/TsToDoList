@@ -5,18 +5,33 @@ window.onstorage = function(e){
 
 window.onload = function (e){
     init();
+}
 
+function adding(){
+    let label = document.getElementById("todoLabel");
+    label.innerText="○";
+}
+
+function noAdding(){
+    let label = document.getElementById("todoLabel");
+    label.innerText="+";
 }
 
 function init(){
     document.getElementById("todoList").innerHTML="";
     document.getElementById("doneList").innerHTML="";
+    let key =[];
     for(let i =0; i<localStorage.length;i++){
-        if(localStorage.key(i)!="number") {
-            let data = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            let number = (data.id).replace("todo", "");
-            addList(number, data.todoText, data.checked)
+        let tmp = localStorage.key(i);
+        if(tmp!="number") {
+            key.push(tmp.replace("todo", ""));
         }
+    }
+    key.sort(compareNumbers);
+    for(let i =0; i<key.length;i++){
+            let data = JSON.parse(localStorage.getItem("todo"+key[i]));
+            let number = key[i];
+            addList(number, data.todoText, data.checked)
     }
     if(document.getElementById("doneList").children.length==0){
         document.getElementById("done").hidden=true;
@@ -25,34 +40,57 @@ function init(){
     }
 }
 
-function addList(number, text, checked ){
+function compareNumbers(a, b) {
+    return a - b;
+}
+
+function todoCheckTag(number, checked){
     let todoCheck = document.createElement("input");
-    let todo = document.createElement("label");
-    let tr = document.createElement("tr");
-    let delBut = document.createElement("button");
-    let tdCheck = document.createElement("td");
-    let tdLabel = document.createElement("td");
-    let tdButton = document.createElement("td");
-    tr.prepend(tdCheck,tdLabel, tdButton);
     todoCheck.type = "checkbox";
     todoCheck.classList.add("todo");
     todoCheck.id = "todoCheck" + number;
     todoCheck.checked = checked;
     todoCheck.onclick = toDoDone;
+    return todoCheck;
+}
+
+function todoTag(number, text){
+    let todo = document.createElement("label");
     todo.id = "todoLabel" + number;
     todo.classList.add("todo");
     todo.innerText = text;
     todo.htmlFor = "todoCheck" + number;
+    return todo;
+}
+function deleteButtonTag(number){
+    let delBut = document.createElement("button");
     delBut.innerText="삭제";
     delBut.style.color="red";
     delBut.id = "todo"+number;
     delBut.onclick = delToDoLS;
     delBut.classList.add("delBut");
-    delBut.style.backgroundImage = "url('src/img/img.png')";
-    tdCheck.prepend(todoCheck);
+    return delBut;
+}
+
+function todoTrTag(checkbox, label, button){
+    let tr = document.createElement("tr");
+    let tdCheck = document.createElement("td");
+    let tdLabel = document.createElement("td");
+    let tdButton = document.createElement("td");
+    tr.prepend(tdCheck,tdLabel, tdButton);
     tdCheck.classList.add("tdCheck");
-    tdLabel.prepend(todo);
-    tdButton.prepend(delBut);
+    tdCheck.prepend(checkbox);
+    tdLabel.prepend(label);
+    tdButton.prepend(button);
+    return tr;
+}
+
+function addList(number, text, checked){
+    let todoCheck = todoCheckTag(number, checked);
+    let todo = todoTag(number, text);
+    let delBut = deleteButtonTag(number);
+    let tr = todoTrTag(todoCheck, todo, delBut);
+
     if(checked==true){
         todo.classList.add("checked");
         document.getElementById("doneList").prepend(tr);
