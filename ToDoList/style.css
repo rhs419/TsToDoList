@@ -67,3 +67,7 @@ button{
 button, input:not(input[type=text]){
     cursor : pointer;
 }
+
+tbody#done{
+    font-size: 0.7em;
+}

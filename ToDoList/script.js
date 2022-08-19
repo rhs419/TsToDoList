@@ -36,7 +36,8 @@ function init(){
     if(document.getElementById("doneList").children.length==0){
         document.getElementById("done").hidden=true;
     }else{
-        document.getElementById("done").hidden=false    ;
+        document.getElementById("done").hidden=false;
+        document.getElementById("doneCount").innerText=document.getElementById("doneList").children.length;
     }
 }
 
@@ -149,4 +150,15 @@ function toDoDone(){
         localStorage.setItem(id,JSON.stringify(data));
     }
     init();
+}
+
+function showDoneList(){
+    console.log(doneList);
+    if (arrow.innerText==">"){
+        arrow.innerText="v";
+        document.getElementById("doneList").style.display = "";
+    }else if (arrow.innerText=="v"){
+        arrow.innerText=">";
+        document.getElementById("doneList").style.display = "none";
+    }
 }
