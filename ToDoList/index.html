@@ -14,7 +14,7 @@
                 <td id="labelTd"><label id="todoLabel" for="toDoInput">+</label></td>
                 <td id="inputTd"><input id="toDoInput" type="text" autocomplete="off"
                                                             placeholder="할일추가"/></td>
-                <td><button type="button" onclick="addToDo()">추가</button></td>
+                <td><button type="submit" id="addButton">추가</button></td>
             </tr>
         </tbody>
         <tbody id="todoList">
@@ -22,7 +22,7 @@
         <tbody>
         <tbody id="done">
             <tr>
-                <td></td><td> <span onclick="showDoneList()"><label id="arrow">v</label> 완료됨 <label id="doneCount"/></span></td>
+                <td></td><td> <span id="doneSpan"><label id="arrow">v</label> 완료됨 <label id="doneCount"/></span></td>
             </tr>
         </tbody>
         <tbody id="doneList">

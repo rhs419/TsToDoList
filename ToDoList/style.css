@@ -71,3 +71,7 @@ button, input:not(input[type=text]){
 tbody#done{
     font-size: 0.7em;
 }
+
+#addButton{
+    color: deepskyblue;
+}
