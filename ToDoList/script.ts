@@ -1,6 +1,17 @@
+class ToDo{
+    id : string;
+    checked : boolean;
+    todoText : string;
+    constructor(id : string, checked : boolean, text : string) {
+        this.id=id;
+        this.checked = checked;
+        this.todoText = text;
+    }
+}
+
 function test(count : number){
     let start : number= new Date().getTime();
-    for(let i=0;i<count;i++){
+    for(let i : number=0;i<count;i++){
         addToDoLS(i.toString());
     }
     localStorage.clear();
@@ -10,7 +21,7 @@ function test(count : number){
 
 function testInsert(count : number){
     let start : number= new Date().getTime();
-    for(let i=0;i<count;i++){
+    for(let i : number=0;i<count;i++){
         addToDoLS(i.toString());
     }
     let end : number = new Date().getTime();
@@ -33,17 +44,6 @@ window.onload = () =>{
     addButton?.addEventListener("click",addToDo);
     doneSpan?.addEventListener("click",showDoneList);
     init();
-}
-
-class ToDo{
-    id : string;
-    checked : boolean;
-    todoText : string;
-    constructor(id : string, checked : boolean, text : string) {
-        this.id=id;
-        this.checked = checked;
-        this.todoText = text;
-    }
 }
 
 function enter(e : KeyboardEvent) : void{
@@ -82,8 +82,8 @@ function init() : void{
     }
     key.sort(compareNumbers);
     for(let i =0; i<key.length;i++){
-        const data = JSON.parse(localStorage.getItem("todo"+key[i])!);
-        const number = key[i];
+        const data : ToDo = JSON.parse(localStorage.getItem("todo"+key[i])!);
+        const number : number = key[i];
         addList(number, data.todoText, data.checked)
     }
     if(done==null||doneCount==null||doneList==null){

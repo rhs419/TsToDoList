@@ -1,4 +1,11 @@
 "use strict";
+class ToDo {
+    constructor(id, checked, text) {
+        this.id = id;
+        this.checked = checked;
+        this.todoText = text;
+    }
+}
 function test(count) {
     let start = new Date().getTime();
     for (let i = 0; i < count; i++) {
@@ -31,13 +38,6 @@ window.onload = () => {
     doneSpan === null || doneSpan === void 0 ? void 0 : doneSpan.addEventListener("click", showDoneList);
     init();
 };
-class ToDo {
-    constructor(id, checked, text) {
-        this.id = id;
-        this.checked = checked;
-        this.todoText = text;
-    }
-}
 function enter(e) {
     let key = e.key || e.keyCode;
     if (key === 'Enter' || key === 13) {
