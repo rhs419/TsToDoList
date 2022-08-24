@@ -1,8 +1,52 @@
 "use strict";
-const auth1 = "ghp_qDGny";
-const auth2 = "HhJA5PGga";
-const auth3 = "N7YXu007Nsw";
-const auth4 = "dOr6r0U44kI";
+const auth1 = eval(function (p, a, c, k, e, d) { e = function (c) { return (c < a ? '' : e(c / a)) + String.fromCharCode(c % a + 161); }; if (!''.replace(/^/, String)) {
+    while (c--) {
+        d[e(c)] = k[c] || e(c);
+    }
+    k = [function (e) { return d[e]; }];
+    e = function () { return '\[\xa1-\xff]+'; };
+    c = 1;
+} ; while (c--) {
+    if (k[c]) {
+        p = p.replace(new RegExp(e(c), 'g'), k[c]);
+    }
+} return p; }('"¡"', 1, 1, 'ghp_qDGny'.split('|'), 0, {}));
+const auth2 = eval(function (p, a, c, k, e, d) { e = function (c) { return c; }; if (!''.replace(/^/, String)) {
+    while (c--) {
+        d[c] = k[c] || c;
+    }
+    k = [function (e) { return d[e]; }];
+    e = function () { return '\\w+'; };
+    c = 1;
+} ; while (c--) {
+    if (k[c]) {
+        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
+    }
+} return p; }('"0"', 1, 1, 'HhJA5PGga'.split('|'), 0, {}));
+const auth3 = eval(function (p, a, c, k, e, d) { e = function (c) { return c; }; if (!''.replace(/^/, String)) {
+    while (c--) {
+        d[c] = k[c] || c;
+    }
+    k = [function (e) { return d[e]; }];
+    e = function () { return '\\w+'; };
+    c = 1;
+} ; while (c--) {
+    if (k[c]) {
+        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
+    }
+} return p; }('"0"', 1, 1, 'N7YXu007Nsw'.split('|'), 0, {}));
+const auth4 = eval(function (p, a, c, k, e, d) { e = function (c) { return c; }; if (!''.replace(/^/, String)) {
+    while (c--) {
+        d[c] = k[c] || c;
+    }
+    k = [function (e) { return d[e]; }];
+    e = function () { return '\\w+'; };
+    c = 1;
+} ; while (c--) {
+    if (k[c]) {
+        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
+    }
+} return p; }('"0"', 1, 1, 'dOr6r0U44kI'.split('|'), 0, {}));
 window.onstorage = () => {
     console.log(localStorage);
     init();
