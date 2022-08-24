@@ -1,4 +1,43 @@
 "use strict";
+const auth1 = "ghp_qDGny";
+const auth2 = "HhJA5PGga";
+const auth3 = "N7YXu007Nsw";
+const auth4 = "dOr6r0U44kI";
+window.onstorage = () => {
+    console.log(localStorage);
+    init();
+};
+window.onload = () => {
+    const toDoInput = document.querySelector("#toDoInput");
+    const addButton = document.querySelector("#addButton");
+    const doneSpan = document.querySelector("#doneSpan");
+    toDoInput.addEventListener("focusin", adding);
+    toDoInput.addEventListener("focusout", adding);
+    toDoInput.addEventListener("keypress", Event => enter(Event));
+    addButton.addEventListener("click", addToDo);
+    doneSpan.addEventListener("click", showDoneList);
+    init();
+};
+function registerComment(auth, title, body) {
+    fetch("https://api.github.com/repos/rhs419/TsToDoList/issues", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "token " + auth,
+        },
+        body: JSON.stringify({
+            title: title,
+            body: body // issue 본문
+        }),
+    }).then(() => {
+        // input 초기화 하기
+    });
+}
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    alert("죄송합니다. 오류가 발생해서 사용할 수 없습니다. 다음에 다시 이용해주세요.");
+    const body = 'Script: ' + url + '\nLine: ' + lineNumber + 'Column: ' + column + '\n' + new Date() + "에 발생. 신속히 처리해주시기 바랍니다.";
+    registerComment(auth1 + auth2 + auth3 + auth4, errorMsg, body);
+};
 class ToDo {
     constructor(id, checked, text) {
         this.id = id;
@@ -15,6 +54,10 @@ function test(count) {
     let end = new Date().getTime();
     console.log((end - start) / 1000 + "초 걸렸습니다");
 }
+function nullTest() {
+    const label = document.querySelector("#noExist");
+    label.innerText = "aa";
+}
 function testInsert(count) {
     let start = new Date().getTime();
     for (let i = 0; i < count; i++) {
@@ -23,48 +66,23 @@ function testInsert(count) {
     let end = new Date().getTime();
     console.log((end - start) / 1000 + "초 걸렸습니다");
 }
-window.onstorage = () => {
-    console.log(localStorage);
-    init();
-};
-window.onload = () => {
-    const toDoInput = document.querySelector("#toDoInput");
-    const addButton = document.querySelector("#addButton");
-    const doneSpan = document.querySelector("#doneSpan");
-    toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.addEventListener("focusin", adding);
-    toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.addEventListener("focusout", adding);
-    toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.addEventListener("keypress", Event => enter(Event));
-    addButton === null || addButton === void 0 ? void 0 : addButton.addEventListener("click", addToDo);
-    doneSpan === null || doneSpan === void 0 ? void 0 : doneSpan.addEventListener("click", showDoneList);
-    init();
-};
 function enter(e) {
-    let key = e.key || e.keyCode;
+    const key = e.key || e.keyCode;
     if (key === 'Enter' || key === 13) {
         addToDo();
     }
 }
 function adding() {
-    let label = document.querySelector("#todoLabel");
-    if (label == null) {
-        console.log("do something");
-    }
-    else {
-        label.innerText == "○" ? label.innerText = "+" : label.innerText = "○";
-    }
+    const label = document.querySelector("#todoLabel");
+    label.innerText == "○" ? label.innerText = "+" : label.innerText = "○";
 }
 function init() {
     const todoList = document.querySelector("#todoList");
     const doneList = document.querySelector("#doneList");
     const doneCount = document.querySelector("#doneCount");
     const done = document.querySelector("#done");
-    if (todoList == null || doneList == null) {
-        console.log("뭐라도 해봐");
-    }
-    else {
-        todoList.innerHTML = "";
-        doneList.innerHTML = "";
-    }
+    todoList.innerHTML = "";
+    doneList.innerHTML = "";
     let key = [];
     for (let i = 0; i < localStorage.length; i++) {
         const tmp = localStorage.key(i);
@@ -78,17 +96,12 @@ function init() {
         const number = key[i];
         addList(number, data.todoText, data.checked);
     }
-    if (done == null || doneCount == null || doneList == null) {
-        console.log("do something");
+    if (doneList.children.length == 0) {
+        done.hidden = true;
     }
     else {
-        if ((doneList === null || doneList === void 0 ? void 0 : doneList.children.length) == 0) {
-            done.hidden = true;
-        }
-        else {
-            done.hidden = false;
-            doneCount.innerText = (doneList.children.length).toString();
-        }
+        done.hidden = false;
+        doneCount.innerText = (doneList.children.length).toString();
     }
 }
 function compareNumbers(a, b) {
@@ -140,17 +153,12 @@ function addList(number, text, checked) {
     const tr = todoTrTag(todoCheck, todo, delBut);
     const doneList = document.querySelector("#doneList");
     const todoList = document.querySelector("#todoList");
-    if (doneList == null || todoList == null) {
-        console.log("do something");
+    if (checked) {
+        todo.classList.add("checked");
+        doneList.prepend(tr);
     }
     else {
-        if (checked) {
-            todo.classList.add("checked");
-            doneList.prepend(tr);
-        }
-        else {
-            todoList.prepend(tr);
-        }
+        todoList.prepend(tr);
     }
 }
 function delToDoLS() {
@@ -171,18 +179,13 @@ function addToDoLS(text) {
 }
 function addToDo() {
     const toDoInput = document.querySelector("#toDoInput");
-    if (toDoInput == null) {
-        console.log("do something");
+    if (!(toDoInput.value == null || toDoInput.value.trim() == "")) {
+        addToDoLS(toDoInput.value);
     }
     else {
-        if (!((toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.value) == null || (toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.value.trim()) == "")) {
-            addToDoLS(toDoInput === null || toDoInput === void 0 ? void 0 : toDoInput.value);
-        }
-        else {
-            toDoInput.focus();
-        }
-        toDoInput.value = "";
+        toDoInput.focus();
     }
+    toDoInput.value = "";
 }
 function toDoDone() {
     let id = this.id;
@@ -190,37 +193,27 @@ function toDoDone() {
     const todo = document.querySelector("#" + id);
     id = id.replace("todoLabel", "todo");
     const data = JSON.parse(localStorage.getItem(id));
-    if (todo == null) {
-        console.log("do something");
+    if (this.checked == true) {
+        todo.classList.add("checked");
+        data.checked = true;
+        localStorage.setItem(id, JSON.stringify(data));
     }
     else {
-        if (this.checked == true) {
-            todo.classList.add("checked");
-            data.checked = true;
-            localStorage.setItem(id, JSON.stringify(data));
-        }
-        else {
-            todo.classList.remove("checked");
-            data.checked = false;
-            localStorage.setItem(id, JSON.stringify(data));
-        }
+        todo.classList.remove("checked");
+        data.checked = false;
+        localStorage.setItem(id, JSON.stringify(data));
     }
     init();
 }
 function showDoneList() {
     const arrow = document.querySelector("#arrow");
     const doneList = document.querySelector("#doneList");
-    if (doneList == null || arrow == null) {
-        console.log("do something");
+    if (arrow.innerText == ">") {
+        arrow.innerText = "v";
+        doneList.style.display = "";
     }
-    else {
-        if (arrow.innerText == ">") {
-            arrow.innerText = "v";
-            doneList.style.display = "";
-        }
-        else if (arrow.innerText == "v") {
-            arrow.innerText = ">";
-            doneList.style.display = "none";
-        }
+    else if (arrow.innerText == "v") {
+        arrow.innerText = ">";
+        doneList.style.display = "none";
     }
 }
